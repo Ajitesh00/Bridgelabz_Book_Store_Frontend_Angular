@@ -1,0 +1,118 @@
+<div class="auth-container">
+  <!-- Left Card with Image and Text -->
+  <mat-card class="image-card">
+    <mat-card-content>
+      <div class="image-container">
+        <img src="1.png" alt="Online Book Shopping" class="book-image" />
+      </div>
+      <strong class="book-title">ONLINE BOOK SHOPPING</strong>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Right Card with Form -->
+  <mat-card class="auth-card">
+    <mat-card-content>
+      <div class="auth-toggle">
+        <span
+          (click)="toggleView('login')"
+          [class.active]="isLogin"
+          class="toggle-text"
+        >
+          LOGIN
+        </span>
+        <span
+          (click)="toggleView('signup')"
+          [class.active]="!isLogin"
+          class="toggle-text"
+        >
+          SIGNUP
+        </span>
+      </div>
+
+      <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+        <ng-container *ngIf="!isLogin">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Full Name</mat-label>
+            <input matInput formControlName="fullName" [errorStateMatcher]="matcher" />
+            <mat-error *ngIf="authForm.get('fullName')?.hasError('required')">
+              Full Name is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Mobile Number</mat-label>
+            <input matInput formControlName="mobile" [errorStateMatcher]="matcher" />
+            <mat-error *ngIf="authForm.get('mobile')?.hasError('required')">
+              Mobile Number is required
+            </mat-error>
+          </mat-form-field>
+        </ng-container>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email Id</mat-label>
+          <input matInput formControlName="email" [errorStateMatcher]="matcher" />
+          <mat-error *ngIf="authForm.get('email')?.hasError('required')">
+            Email is required
+          </mat-error>
+          <mat-error *ngIf="authForm.get('email')?.hasError('email')">
+            Please enter a valid email address
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            [type]="showPassword ? 'text' : 'password'"
+            formControlName="password"
+            [errorStateMatcher]="matcher"
+            (keydown.enter)="onSubmit()"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            type="button"
+            (click)="togglePasswordVisibility()"
+            aria-label="Toggle password visibility"
+          >
+            <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="authForm.get('password')?.hasError('required')">
+            Password is required
+          </mat-error>
+        </mat-form-field>
+
+        <button
+          mat-raised-button
+          color="primary"
+          class="submit-button full-width"
+          type="submit"
+        >
+          {{ isLogin ? 'Login' : 'Signup' }}
+        </button>
+
+        <ng-container *ngIf="isLogin">
+          <!-- OR Separator -->
+          <div class="or-separator">
+            <div class="line"></div>
+            <span class="or-text">OR</span>
+            <div class="line"></div>
+          </div>
+
+          <!-- Social Buttons -->
+          <div class="social-buttons">
+            <button mat-raised-button class="social-button facebook-button">
+              Facebook
+            </button>
+            <button mat-raised-button class="social-button google-button">
+              <div style="display: flex; align-items: center;">
+                <img src="Google.png" alt="Google" class="google-icon" />
+                Google
+              </div>
+            </button>
+          </div>
+        </ng-container>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
