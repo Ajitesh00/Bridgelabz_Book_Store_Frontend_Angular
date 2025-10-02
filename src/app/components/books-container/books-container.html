@@ -1,0 +1,18 @@
+<div class="outer-div" style="padding: 40px 64px; margin: 64px 36px;">
+  <div class="header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: -40px; margin-top: -70px; margin-left: 65px; margin-right: 60px;">
+    <h4 style="margin-left: 64px;">Books <span style="font-size: 12px;">({{ totalBooks }} Items)</span></h4>
+    <mat-select [value]="sortBy" (selectionChange)="handleSortChange($event.value)" style="width: 200px; margin-right: 64px; border:solid 1px #ccc; border-radius: 4px; padding: 10px 8px;">
+      <mat-option value="relevance">Sort by relevance</mat-option>
+      <mat-option value="price_low_to_high">Price: Low to High</mat-option>
+      <mat-option value="price_high_to_low">Price: High to Low</mat-option>
+      <mat-option value="newest_arrivals">Newest Arrivals</mat-option>
+    </mat-select>
+  </div>
+  <div class="books-grid" style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; margin-top: 80px;">
+    <app-book-card *ngFor="let book of books" [book]="book"></app-book-card>
+    <h6 *ngIf="books.length === 0" style="text-align: center; width: 100%;">No books found.</h6>
+  </div>
+  <div style="margin-top: 64px; display: flex; justify-content: center; align-items: center; gap: 16px;">
+    <mat-paginator [length]="totalBooks" [pageSize]="limit" [pageSizeOptions]="[4, 8, 16, 24, 32, 48]" [showFirstLastButtons]="true" (page)="handlePageEvent($event)" [pageIndex]="page - 1"></mat-paginator>
+  </div>
+</div>

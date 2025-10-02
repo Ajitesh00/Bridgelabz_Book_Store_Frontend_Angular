@@ -1,0 +1,98 @@
+:host {
+  display: block;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.search-bar {
+  width: 50%; // Reduced from 70% for better balance
+  max-width: 500px; // Prevent it from becoming too wide on large screens
+  background-color: #ffffff; // White background as desired
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Subtle shadow for depth
+  margin: 8px 0; // Vertical margin to align with toolbar height
+  padding: 0px 0px; // Inner padding for better spacing
+
+  // Style the outline border to match the dark red theme
+  ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+    display: none; // Hide any subscript to keep it clean
+  }
+
+  ::ng-deep .mat-mdc-form-field-infix {
+    padding: 10px 0; // Adjust padding for input
+  }
+
+  ::ng-deep .mat-mdc-text-field-wrapper {
+    background-color: #ffffff; // Ensure input area is white
+    border-radius: 4px;
+    height: 45px;
+  }
+
+  ::ng-deep .mat-mdc-form-field-flex {
+    align-items: center; // Vertically center input and icon
+  }
+
+  // Style the search icon button
+  ::ng-deep .mat-mdc-icon-button {
+    color: #8B0000; // Match toolbar color
+  }
+}
+
+// Ensure toolbar buttons align properly
+mat-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  justify-content: space-between;
+
+  ::ng-deep .mat-icon {
+    color: #ffffff !important; // White color for profile, cart, wishlist icons
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 600px) {
+
+  .search-bar {
+    width: 25%; // Full width on small screens
+    margin-top: 8px; // Tighter margin for mobile
+    margin-left: 5px;
+    height: 40px; // Slightly smaller input field for mobile
+
+    ::ng-deep .mat-mdc-text-field-wrapper {
+      height: 40px; // Match reduced height
+    }
+
+    ::ng-deep .mat-mdc-form-field-infix {
+      padding: 8px 0; // Adjust padding for smaller input
+    }
+  }
+
+  mat-toolbar {
+    gap: 10px; // Further reduce gap for compact layout
+    padding: 0 10px; // Reduce toolbar padding for more space
+    flex-wrap: wrap; // Allow wrapping if needed for very small screens
+    justify-content: space-around; // Distribute space more evenly
+  }
+
+  // Adjust logo size for mobile
+  img {
+    height: 32px; // Smaller logo for mobile
+    margin-left: -10px;
+  }
+
+  // Reduce button sizes
+  ::ng-deep .mat-mdc-icon-button {
+    width: 36px; // Slightly smaller buttons
+    height: 36px;
+    line-height: 36px;
+
+    .mat-icon {
+      font-size: 20px; // Smaller icons for mobile
+      width: 20px;
+      height: 20px;
+    }
+  }
+}

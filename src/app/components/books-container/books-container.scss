@@ -1,0 +1,69 @@
+@media (max-width: 600px) {
+  /* Adjust outer container padding and margins */
+  div {
+    padding-left: 16px; /* Reduce padding */
+    padding-right: 16px;
+    margin-left: 8px; /* Reduce margins */
+    margin-right: 8px;
+  }
+
+  /* Header section (title and sort select) */
+  div {
+    flex-direction: column; /* Stack title and sort select vertically */
+    align-items: center; /* Center align */
+    margin-bottom: 20px; /* Adjust spacing */
+  }
+
+  .header {
+    margin-left: -150px !important;
+    gap: 90px !important; /* Add spacing between title and sort select */
+  }
+
+  /* Title */
+  h4 {
+    font-size: 24px; /* Smaller h4 variant for mobile */
+    margin-left: 0; /* Remove left margin */
+    text-align: center; /* Center title */
+  }
+
+  span {
+    font-size: 12px; /* Smaller caption size */
+  }
+
+  /* Sort select */
+  mat-select {
+    width: 160px !important; /* Smaller width for mobile */
+    margin: 0px; /* Remove right margin */
+    margin-top: 8px; /* Add spacing above sort select */
+    margin-bottom: 32px;
+  }
+
+  /* Grid container */
+  .books-grid {
+    margin-top: 16px !important; /* Reduce top margin */
+    gap: 8px; /* Reduce spacing between grid items */
+  }
+
+  /* Grid items (book cards) */
+  app-book-card {
+    padding: 4px; /* Reduce padding around book cards */
+  }
+
+  /* No books found message */
+  h6 {
+    font-size: 16px; /* Smaller h6 variant for mobile */
+  }
+
+  /* Pagination section */
+  div {
+    flex-direction: row; /* Stack pagination and limit select */
+    gap: 0px; /* Reduce gap */
+    margin-top: 24px; /* Reduce top margin */
+    margin-left: -24px;
+  }
+
+  /* Pagination control */
+  mat-paginator {
+    transform: scale(1.2); /* Slightly smaller pagination buttons */
+  }
+}

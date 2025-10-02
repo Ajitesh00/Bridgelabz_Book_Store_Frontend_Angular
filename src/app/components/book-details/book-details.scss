@@ -1,0 +1,402 @@
+.book-details-container {
+  display: flex;
+  gap: 32px;
+  padding: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.breadcrumb {
+  margin-top: 28px;
+  margin-left: 248px;
+  .breadcrumb-home {
+    color: gray;
+  }
+  .breadcrumb-book {
+    font-weight: bold;
+  }
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.image-section {
+  flex: 0 0 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  .book-image-card {
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 310px;
+    max-width: 310px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    position: relative;
+
+    .book-image {
+      width: 100%;
+      height: 450px;
+      display: block;
+    }
+
+    .out-of-stock {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      max-width: 310px;
+      background-color: #00000066;
+      color: white;
+      text-align: center;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+  }
+
+  .button-group {
+    display: flex;
+    gap: 16px;
+    width: 70%;
+    height: 56px;
+
+    .add-to-bag-button {
+      background-color: #8B0000;
+      color: white;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      flex: 1;
+      height: 50px;
+
+      &[disabled] {
+        background-color: white;
+        color: #8B0000;
+        opacity: 1;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      &:hover:not([disabled]) {
+        background-color: #6B0000;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    .wishlist-button {
+      background-color: #000000;
+      color: white;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      flex: 1;
+      height: 50px;
+
+      &[disabled] {
+        background-color: white;
+        color: #000000;
+        opacity: 1;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      &:hover:not([disabled]) {
+        background-color: #333333;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      }
+    }
+  }
+}
+
+.details-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .book-title {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+  .book-author {
+    color: gray;
+    margin-top: -16px;
+  }
+
+  .rating-section {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: -8px;
+
+    .rating-chip {
+      background-color: green;
+      color: white;
+      border-radius: 4px;
+    }
+
+    .book-quantity {
+      color: gray;
+    }
+  }
+
+  .price-section {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+
+    .discount-price {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .original-price {
+      color: gray;
+      text-decoration: line-through;
+    }
+  }
+
+  .divider {
+    border: none;
+    height: 1px;
+    background-color: #ccc;
+    margin: 16px 0;
+  }
+
+  .details-heading,
+  .feedback-heading {
+    font-size: 1.25rem;
+    font-weight: normal;
+    margin-top: 0;
+  }
+
+  .book-description {
+    color: gray;
+    margin-top: -10px;
+  }
+
+  .feedback-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background-color: #ccc;
+    padding: 24px 16px;
+
+    .feedback-textarea {
+      width: 97.5%;
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      resize: vertical;
+      background: white;
+    }
+
+    .submit-button {
+      background-color: #8B0000;
+      color: white;
+      align-self: flex-end;
+    }
+  }
+
+  .reviews-section {
+    .review {
+      margin-top: 8px;
+
+      .review-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-top: 30px;
+
+        .review-image {
+          height: 35px;
+          width: 35px;
+        }
+
+        .review-name {
+          font-size: 1.5rem;
+          font-weight: bold;
+        }
+      }
+
+      .review-stars {
+        height: 50px;
+        width: 150px;
+        margin-left: 42px;
+      }
+
+      .review-text {
+        color: gray;
+        margin-left: 52px;
+        margin-top: 0px;
+      }
+    }
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  .book-details-container {
+    flex-direction: column; /* Stack image and details sections vertically */
+    padding: 16px; /* Reduced padding for mobile */
+    gap: 24px; /* Slightly reduced gap */
+    max-width: 100%; /* Full width for mobile */
+  }
+
+  .breadcrumb {
+    margin-left: 0; /* Remove large left margin for mobile */
+    margin-top: 16px; /* Reduced top margin */
+    text-align: center; /* Center breadcrumbs */
+  }
+
+  .image-section {
+    flex: 0 0 100%; /* Full width for image section */
+    align-items: center;
+
+    .book-image-card {
+      width: 100%; /* Full width for book image */
+      max-width: 280px; /* Slightly smaller max-width */
+      border: 1px solid #ccc; /* Thinner border for mobile */
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Lighter shadow */
+
+      .book-image {
+        height: 350px; /* Reduced height for mobile */
+      }
+
+      .out-of-stock {
+        max-width: 280px; /* Match image width */
+        padding: 6px 12px; /* Slightly smaller padding */
+        font-size: 14px; /* Smaller text */
+      }
+    }
+
+    .button-group {
+      width: 100%; /* Full width for buttons */
+      gap: 12px; /* Reduced gap */
+      height: 48px; /* Slightly smaller height */
+
+      .add-to-bag-button,
+      .wishlist-button {
+        height: 40px; /* Smaller buttons */
+        font-size: 14px; /* Smaller text */
+      }
+    }
+  }
+
+  .details-section {
+    gap: 12px; /* Reduced gap for mobile */
+
+    .book-title {
+      font-size: 1.5rem; /* Smaller title */
+      text-align: center; /* Center title */
+    }
+
+    .book-author {
+      margin-top: -12px; /* Adjusted margin */
+      text-align: center; /* Center author */
+      font-size: 14px; /* Smaller text */
+    }
+
+    .rating-section {
+      justify-content: center; /* Center rating */
+      margin-top: -4px; /* Reduced margin */
+      gap: 6px; /* Smaller gap */
+
+      .rating-chip {
+        padding: 4px 8px; /* Smaller chip */
+        font-size: 12px; /* Smaller text */
+      }
+
+      .book-quantity {
+        font-size: 12px; /* Smaller text */
+      }
+    }
+
+    .price-section {
+      justify-content: center; /* Center prices */
+      gap: 12px; /* Reduced gap */
+
+      .discount-price {
+        font-size: 1.25rem; /* Smaller discount price */
+      }
+
+      .original-price {
+        font-size: 14px; /* Smaller original price */
+      }
+    }
+
+    .divider {
+      margin: 12px 0; /* Reduced margin */
+    }
+
+    .details-heading,
+    .feedback-heading {
+      font-size: 1rem; /* Smaller headings */
+      text-align: center; /* Center headings */
+    }
+
+    .book-description {
+      margin-top: -8px; /* Adjusted margin */
+      font-size: 14px; /* Smaller text */
+      text-align: center; /* Center description */
+    }
+
+    .feedback-section {
+      padding: 16px; /* Reduced padding */
+      gap: 12px; /* Reduced gap */
+
+      .feedback-textarea {
+        width: 95%; /* Full width */
+        font-size: 14px; /* Smaller text */
+      }
+
+      .submit-button {
+        font-size: 14px; /* Smaller text */
+        padding: 8px 16px; /* Smaller button */
+      }
+    }
+
+    .reviews-section {
+      .review {
+        margin-top: 4px; /* Reduced margin */
+
+        .review-header {
+          gap: 12px; /* Reduced gap */
+          margin-top: 20px; /* Reduced margin */
+          justify-content: center; /* Center header */
+
+          .review-image {
+            height: 30px; /* Smaller image */
+            width: 30px;
+          }
+
+          .review-name {
+            font-size: 1.25rem; /* Smaller name */
+          }
+        }
+
+        .review-stars {
+          height: 40px; /* Smaller stars */
+          width: 120px; /* Smaller width */
+          margin-left: 0; /* Center stars */
+          display: block;
+          margin: 0 auto; /* Center horizontally */
+        }
+
+        .review-text {
+          margin-left: 0; /* Remove left margin */
+          font-size: 14px; /* Smaller text */
+          text-align: center; /* Center text */
+          margin-top: 8px; /* Adjusted margin */
+        }
+      }
+    }
+  }
+
+  .loading-container {
+    height: 80vh; /* Slightly reduced height for mobile */
+  }
+}

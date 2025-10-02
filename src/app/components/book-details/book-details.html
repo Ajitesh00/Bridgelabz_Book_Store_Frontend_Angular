@@ -1,0 +1,79 @@
+<app-header></app-header>
+
+<!-- Breadcrumb -->
+<div class="breadcrumb" *ngIf="!loading">
+  <span class="breadcrumb-home">Home/</span>
+  <span class="breadcrumb-book">{{ book?.bookName }}</span>
+</div>
+
+<!-- Loading State -->
+<div class="loading-container" *ngIf="loading">
+  <mat-spinner></mat-spinner>
+</div>
+
+<!-- Main Content -->
+<div class="book-details-container" *ngIf="!loading && book">
+  <!-- Left Section: Book Image and Buttons -->
+  <div class="image-section">
+    <mat-card class="book-image-card">
+      <img mat-card-image [src]="book.bookImage" [alt]="book.bookName" class="book-image">
+      <div class="out-of-stock" *ngIf="book.quantity === 0">
+        Out of Stock
+      </div>
+    </mat-card>
+    <div class="button-group">
+      <button mat-raised-button class="add-to-bag-button" [disabled]="book.quantity === 0 || isAddedToBag" (click)="handleAddToBag()">
+        <mat-icon>shopping_bag</mat-icon>
+        {{ isAddedToBag ? 'Added✓' : 'Add to Bag' }}
+      </button>
+      <button mat-raised-button class="wishlist-button" [disabled]="isAddedToWishlist" (click)="handleAddToWishlist()">
+        <mat-icon>favorite</mat-icon>
+        {{ isAddedToWishlist ? 'Added✓' : 'Wishlist' }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Right Section: Book Details -->
+  <div class="details-section">
+    <h1 class="book-title">{{ book.bookName }}</h1>
+    <p class="book-author">by: {{ book.author }}</p>
+    <div class="rating-section">
+      <mat-chip-set>
+        <mat-chip color="accent" selected class="rating-chip"><span style="color:white">4.5 ★</span></mat-chip>
+      </mat-chip-set>
+      <span class="book-quantity">({{ book.quantity }})</span>
+    </div>
+    <div class="price-section">
+      <span class="discount-price">Rs. {{ book.discountPrice }}</span>
+      <span class="original-price">Rs. {{ book.price }}</span>
+    </div>
+    <hr class="divider">
+    <h2 class="details-heading">Book Details</h2>
+    <p class="book-description">{{ book.description }}</p>
+    <hr class="divider">
+    <h2 class="feedback-heading">Customer Feedback</h2>
+    <div class="feedback-section">
+      <textarea matInput placeholder="Write your review..." rows="4" class="feedback-textarea"></textarea>
+      <button mat-raised-button color="primary" class="submit-button">Submit</button>
+    </div>
+    <!-- <hr class="divider"> -->
+    <div class="reviews-section">
+      <div class="review">
+        <div class="review-header">
+          <img src="profile3.png" alt="Profile" class="review-image">
+          <span class="review-name">John Doe</span>
+        </div>
+        <img src="5stars.png" alt="5 Stars" class="review-stars">
+        <p class="review-text">Great book! Really enjoyed the storyline and characters.</p>
+      </div>
+      <div class="review">
+        <div class="review-header">
+          <img src="profile2.png" alt="Profile" class="review-image">
+          <span class="review-name">Jane Smith</span>
+        </div>
+        <img src="5stars.png" alt="5 Stars" class="review-stars">
+        <p class="review-text">A must-read for fans of the genre. Highly recommend!</p>
+      </div>
+    </div>
+  </div>
+</div>

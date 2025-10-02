@@ -1,0 +1,23 @@
+<mat-toolbar color="primary" style="background-color: #8B0000; padding: 0 20px;">
+  <span style="display: flex; align-items: center; cursor: pointer; margin-left: 16px;" (click)="navigateToDashboard()">
+    <img [src]="logoUrl" alt="Logo" style="height: 40px; cursor: pointer;" />
+  </span>
+  <span class="spacer"></span>
+  <mat-form-field appearance="outline" class="search-bar">
+    <mat-label>Search books...</mat-label>
+    <input matInput [formControl]="searchQuery" (keydown.enter)="handleSearch()">
+  </mat-form-field>
+    <span class="spacer"></span>
+    <button mat-icon-button class="account-icon" [matMenuTriggerFor]="profileMenu" matTooltip="Profile" aria-label="Profile">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    <mat-menu #profileMenu="matMenu">
+      <button mat-menu-item (click)="handleLogout()">Logout</button>
+    </mat-menu>
+    <button mat-icon-button matTooltip="Cart" (click)="handleCartClick()" aria-label="Cart">
+      <mat-icon>shopping_cart</mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="Wishlist" (click)="handleWishlistClick()" aria-label="Wishlist" style="margin-right: 10px;">
+      <mat-icon>favorite</mat-icon>
+    </button>
+</mat-toolbar>
