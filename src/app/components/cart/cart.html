@@ -1,0 +1,170 @@
+<app-header></app-header>
+<div class="breadcrumb" style="margin-top: 32px; margin-left: 165px;">
+  <span class="breadcrumb-home" style="color: gray;">Home/</span>
+  <span class="breadcrumb-cart" style="font-weight: bold;">My Cart</span>
+</div>
+
+<mat-card class="cart-container" *ngIf="loading">
+  <mat-spinner style="margin: 0 auto;"></mat-spinner>
+</mat-card>
+
+<mat-card class="cart-container" *ngIf="!loading">
+  <div class="cart-header">
+    <h2 class="cart-title">MyCart ({{ cartItems.length }})</h2>
+    <mat-form-field class="address-select" appearance="outline">
+      <mat-label>Select Address</mat-label>
+      <mat-select [(ngModel)]="selectedAddress" [disabled]="customerAddresses.length === 0">
+        <mat-option *ngIf="customerAddresses.length === 0" value="" disabled>No addresses available</mat-option>
+        <mat-option *ngFor="let addr of customerAddresses" [value]="addr.id">
+          {{ addr.address }}, {{ addr.city }}, {{ addr.state }}
+        </mat-option>
+      </mat-select>
+      <mat-icon matPrefix>location_on</mat-icon>
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="cartItems.length === 0" class="empty-cart">
+    <h3>Your cart is empty</h3>
+  </div>
+
+  <div *ngFor="let item of cartItems; let i = index" class="cart-item">
+    <div class="item-content">
+      <mat-card class="item-image">
+        <img [src]="item.bookImage" [alt]="item.bookName" style="width: 100%; height: 100%; object-fit: cover;">
+      </mat-card>
+      <div class="item-details">
+        <h3 class="item-title">{{ item.bookName }}</h3>
+        <p class="item-author">by {{ item.author }}</p>
+        <div class="item-price">
+          <span class="discount-price">Rs. {{ item.discountPrice }}</span>
+          <span class="original-price">Rs. {{ item.price }}</span>
+        </div>
+        <div class="item-controls">
+          <button mat-icon-button class="decrement-button" (click)="handleDecrement(item.cartItemId, item.quantity)">
+            <mat-icon>remove</mat-icon>
+          </button>
+          <span class="item-quantity">{{ item.quantity }}</span>
+          <button mat-icon-button class="increment-button" (click)="handleIncrement(item.cartItemId, item.quantity, item.bookId, item.availableQuantity)">
+            <mat-icon>add</mat-icon>
+          </button>
+          <button mat-button class="remove-button" (click)="handleRemove(item.cartItemId)">Remove</button>
+        </div>
+        <div class="item-total">
+          <span class="total-amount">Rs. {{ item.total }}</span>
+          <span class="total-label">(Total)</span>
+        </div>
+      </div>
+    </div>
+    <hr class="divider" *ngIf="i < cartItems.length - 1">
+  </div>
+
+  <div class="cart-footer" *ngIf="cartItems.length > 0">
+    <div class="grand-total">
+      <span class="grand-total-amount">Grand Total: Rs. {{ grandTotal }}</span>
+    </div>
+    <button mat-raised-button class="place-order-button" (click)="handleCustomerCollapseToggle()">
+      Continue
+    </button>
+  </div>
+</mat-card>
+
+<mat-card *ngIf="isCustomerCollapsed === false" class="customer-container">
+  <h2 class="customer-title">Customer Details</h2>
+  <form [formGroup]="customerForm" class="customer-form">
+    <div class="customer-name-mobile">
+      <mat-form-field appearance="outline">
+        <mat-label>Full Name</mat-label>
+        <input matInput formControlName="fullName">
+        <mat-error *ngIf="customerForm.get('fullName')?.hasError('required')">
+          Full Name is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Mobile Number</mat-label>
+        <input matInput formControlName="mobileNumber">
+        <mat-error *ngIf="customerForm.get('mobileNumber')?.hasError('required')">
+          Mobile Number is required
+        </mat-error>
+        <mat-error *ngIf="customerForm.get('mobileNumber')?.hasError('pattern')">
+          Please enter a valid 10-digit mobile number
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="customer-address-type">
+      <mat-radio-group formControlName="addressType">
+        <mat-radio-button value="work" color="primary">1. Working Address</mat-radio-button>
+        <mat-radio-button value="home" color="primary">2. Home Address</mat-radio-button>
+      </mat-radio-group>
+      <mat-error *ngIf="customerForm.get('addressType')?.hasError('required') && customerForm.get('addressType')?.touched">
+        Address type is required
+      </mat-error>
+    </div>
+    <mat-form-field class="customer-address-field" appearance="outline">
+      <mat-label>Address</mat-label>
+      <input matInput formControlName="address">
+      <mat-error *ngIf="customerForm.get('address')?.hasError('required')">
+        Address is required
+      </mat-error>
+    </mat-form-field>
+    <div class="customer-city-state" style="margin-top: -30px;">
+      <mat-form-field appearance="outline">
+        <mat-label>City/Town</mat-label>
+        <input matInput formControlName="city">
+        <mat-error *ngIf="customerForm.get('city')?.hasError('required')">
+          City is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>State</mat-label>
+        <input matInput formControlName="state">
+        <mat-error *ngIf="customerForm.get('state')?.hasError('required')">
+          State is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="customer-footer">
+      <button mat-raised-button class="continue-button" (click)="handleSaveCustomer()" [disabled]="customerForm.invalid">
+        Continue
+      </button>
+    </div>
+  </form>
+</mat-card>
+
+<mat-card class="cart-container" *ngIf="isOrderCollapsed === false">
+  <h2 class="cart-title" style="margin-bottom: 55px;">Order Summary</h2>
+  <div *ngIf="cartItems.length === 0" class="empty-cart">
+    <h3>No items in order</h3>
+  </div>
+  <div *ngFor="let item of cartItems; let i = index" class="cart-item">
+    <div class="item-content">
+      <mat-card class="item-image">
+        <img [src]="item.bookImage" [alt]="item.bookName" style="width: 100%; height: 100%; object-fit: cover;">
+      </mat-card>
+      <div class="item-details">
+        <h3 class="item-title">{{ item.bookName }}</h3>
+        <p class="item-author">by {{ item.author }}</p>
+        <div class="item-price">
+          <span class="discount-price">Rs. {{ item.discountPrice }}</span>
+          <span class="original-price">Rs. {{ item.price }}</span>
+        </div>
+        <div class="item-quantity">
+          <span>Quantity: {{ item.quantity }}</span>
+        </div>
+        <div class="item-total">
+          <span class="total-amount">Rs. {{ item.total }}</span>
+          <span class="total-label">(Total)</span>
+        </div>
+      </div>
+    </div>
+    <hr class="divider" *ngIf="i < cartItems.length - 1">
+  </div>
+  <div class="cart-footer" *ngIf="cartItems.length > 0">
+    <div class="grand-total">
+      <span class="grand-total-amount">Grand Total: Rs. {{ grandTotal }}</span>
+    </div>
+    <button mat-raised-button class="place-order-button" (click)="handlePlaceOrder()" [disabled]="!selectedAddress">
+      Place Order
+    </button>
+  </div>
+</mat-card>
+<footer></footer>

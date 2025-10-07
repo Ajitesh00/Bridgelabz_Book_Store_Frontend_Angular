@@ -1,0 +1,38 @@
+<app-header></app-header>
+
+<div class="breadcrumb" style="margin-top: 32px; margin-left: 165px;">
+  <span class="breadcrumb-home" style="color: gray;">Home/</span>
+  <span class="breadcrumb-wishlist" style="font-weight: bold;">My Wishlist</span>
+</div>
+
+<mat-card class="wishlist-container" *ngIf="loading">
+  <mat-spinner style="margin: 0 auto;"></mat-spinner>
+</mat-card>
+
+<mat-card class="wishlist-container" *ngIf="!loading">
+  <div class="wishlist-header">
+    <h2 class="wishlist-title">MyWishlist ({{ wishlistItems.length }})</h2>
+  </div>
+
+  <div *ngIf="wishlistItems.length === 0" class="empty-wishlist">
+    Your wishlist is empty
+  </div>
+
+  <div *ngFor="let item of wishlistItems; let i = index" class="wishlist-item">
+    <div class="item-content">
+      <mat-card class="item-image">
+        <img [src]="item.bookImage" [alt]="item.bookName" style="width: 100%; height: 100%; object-fit: cover;">
+      </mat-card>
+      <div class="item-details">
+        <h3 class="item-title">{{ item.bookName }}</h3>
+        <p class="item-author">by {{ item.author }}</p>
+        <button mat-button class="remove-button" (click)="handleRemove(item.wishlistItemId)">Remove</button>
+      </div>
+    </div>
+    <hr class="divider" *ngIf="i < wishlistItems.length - 1">
+  </div>
+
+  <div class="wishlist-footer" *ngIf="wishlistItems.length > 0">
+    <button mat-raised-button class="clear-wishlist-button" (click)="handleClear()">Clear Wishlist</button>
+  </div>
+</mat-card>

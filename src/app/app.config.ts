@@ -21,6 +21,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { routes } from './app.routes';
 import { AuthService } from './services/auth/auth.service';
 import { Book } from './services/books/book';
+import { CartService } from './services/cart/cart';
+import { WishlistService } from './services/wishlist/wishlist';
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -29,6 +32,8 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     AuthService,
     Book,
+    CartService,
+    WishlistService,
     importProvidersFrom([
       // BrowserAnimationsModule,
       MatSnackBarModule,
